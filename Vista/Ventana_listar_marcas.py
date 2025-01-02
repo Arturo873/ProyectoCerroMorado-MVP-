@@ -1,9 +1,10 @@
-# Ventana_listar_klm.py
+
+
 import tkinter as tk
 from tkinter import ttk
 from tkinter import messagebox  # Para mostrar mensajes
 
-class Vlistar_Klm_Act(tk.Toplevel):
+class VListar_Marcas(tk.Toplevel):
     def __init__(self, *args, gestor_camionetas, **kwargs):
         super().__init__(*args, **kwargs)
 
@@ -21,42 +22,41 @@ class Vlistar_Klm_Act(tk.Toplevel):
         self.minsize(width=min_width, height=min_height)
         self.maxsize(width=min_width, height=min_height)
 
-        self.title("Listado de Camionetas por Kilometraje")
+        self.title("Listado de Marcas de Camionetas")
 
         # Etiqueta del título
-        self.Label_titulo = tk.Label(self, text='Camionetas Ordenadas por Kilometraje')
+        self.Label_titulo = tk.Label(self, text='Marcas de Camionetas')
         self.Label_titulo.place(x=200, y=20, width=300, anchor='center')
 
-        # Lista para mostrar las camionetas
-        self.listaDatos = tk.Listbox(self, width=50, height=10)
-        self.mostrar_camionetas_por_kilometraje()
-        self.listaDatos.place(x=50, y=50)
+        # Lista para mostrar las marcas de las camionetas
+        self.listaMarcas = tk.Listbox(self, width=50, height=10)
+        self.mostrar_marcas()
+        self.listaMarcas.place(x=50, y=50)
 
         # Botón para volver al menú
-        self.boton_volver = ttk.Button(
-            self,
-            text="Volver al Menú",
-            command=self.volver_menu
-        )
+        self.boton_volver = ttk.Button(self, text="Volver al Menú", command=self.volver_menu)
         self.boton_volver.pack(side=tk.BOTTOM, pady=(10, 10))
 
-    def mostrar_camionetas_por_kilometraje(self):
+    def mostrar_marcas(self):
         """
-        Obtiene camionetas del gestor, las ordena por kilometraje y las muestra.
+        Obtiene las camionetas del gestor y muestra solo las marcas
         """
-        lista_camionetas_DTO = self.gestor_camionetas.listar_camionetas_act()
-        camionetas = lista_camionetas_DTO.get_all()  # Usamos get_all() en lugar de getNext_camioneta
+        # Usar el método correcto listar_camionetas_act para obtener todas las camionetas activas
+        lista_camionetas_DTO = self.gestor_camionetas.listar_camionetas_act()  # CORRECCIÓN AQUÍ
+        cantidad = lista_camionetas_DTO.lenLista_camioneta()
 
-        if len(camionetas) == 0:
+        if cantidad == 0:
             self.mostrar_mensaje("No hay camionetas registradas.")
             return
 
-        # Ordenar las camionetas por kilometraje (índice 2 de cada tupla)
-        camionetas.sort(key=lambda x: x[2])
+        marcas = set()  # Usamos un set para evitar marcas duplicadas
+        # Iterar sobre la lista completa de camionetas usando get_all()
+        for camioneta in lista_camionetas_DTO.get_all():
+            marcas.add(camioneta[1])  # Asumimos que el índice 1 es la marca
 
-        # Mostrar las camionetas en la lista
-        for i, camioneta in enumerate(camionetas):
-            self.listaDatos.insert(i, f"{camioneta[0]} - {camioneta[1]} - {camioneta[2]} km")
+        # Mostrar las marcas en la lista
+        for marca in marcas:
+            self.listaMarcas.insert(tk.END, marca)
 
     def mostrar_mensaje(self, mensaje):
         """
@@ -76,3 +76,5 @@ class Vlistar_Klm_Act(tk.Toplevel):
         Configura la ventana padre para poder deiconificarla al cerrar.
         """
         self.ventana = ventana
+
+

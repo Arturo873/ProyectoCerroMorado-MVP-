@@ -7,7 +7,7 @@ Created on Sun Oct 06 14:00:00 2024
 
 import tkinter as tk
 from tkinter import ttk
-from Vista.Ventana_listar_klm import Vlistar_Klm_Act  # Importa la ventana de listado por kilometraje
+from Vista.Ventana_listar_klm import Vlistar_Klm_Act  # Importar ventana de kilometraje
 
 class VMenu_Sf(tk.Tk):
     def __init__(self, *args, presenter, gestor_camionetas, **kwargs):
@@ -29,25 +29,25 @@ class VMenu_Sf(tk.Tk):
 
         self.title("Gestión Supervisor de Flota")
 
-        # Título visible en la ventana
-        self.Label_titulo = tk.Label(self, text='Menú Supervisor de Flota')
-        self.Label_titulo.place(x=200, y=50, width=300, anchor='center')
+        # Título visible en la ventana (centrado)
+        self.Label_titulo = tk.Label(self, text='Menú Supervisor de Flota', font=("Helvetica", 16))
+        self.Label_titulo.place(relx=0.5, rely=0.1, anchor='center')
 
-        # Botón para listar camionetas por kilometraje
+        # Botón para listar camionetas por kilometraje (centrado)
         self.boton_listar_kilometraje = ttk.Button(
             self,
-            text="Ver Camionetas por Kilometraje",
+            text="Ver Kilometraje de Camionetas",
             command=self.abrir_ventana_listar_klm
         )
-        self.boton_listar_kilometraje.place(x=150, y=100)
+        self.boton_listar_kilometraje.place(relx=0.5, rely=0.3, anchor='center', width=250)
 
-        # Botón para cerrar la aplicación
+        # Botón para cerrar la aplicación (centrado)
         self.boton_cerrar = ttk.Button(
             self,
             text="Salir aplicación",
             command=self.salir_aplicacion
         )
-        self.boton_cerrar.place(x=150, y=200)
+        self.boton_cerrar.place(relx=0.5, rely=0.7, anchor='center', width=200)
 
     # Método para abrir la ventana de listado por kilometraje
     def abrir_ventana_listar_klm(self):

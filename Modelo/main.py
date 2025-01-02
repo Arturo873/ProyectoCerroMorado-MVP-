@@ -15,7 +15,7 @@ class Model:
         self.conectorBD = ConectorBD(
             hostdb="localhost",      # Cambiado a "hostdb" para coincidir con ConectorBD
             userdb="root",           # Cambiado a "userdb"
-            passwordb="",        # Cambiado a "passwordb"
+            passwordb="root",        # Cambiado a "passwordb"
             basedatosdb="dbminera",  # Cambiado a "basedatosdb"
             port=3306
         )

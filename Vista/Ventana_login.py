@@ -10,7 +10,7 @@ from tkinter import ttk
 from Vista.Ventana_menu_jf import VMenu_Jf
 from Vista.Ventana_menu_sf import VMenu_Sf
 from Modelo.Usuario_DTO import Usuario_DTO
-import sys
+
 class Vlogin(tk.Tk):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -94,9 +94,7 @@ class Vlogin(tk.Tk):
             self.campo_mensaje.config(state='readonly')
 
     def cerrar_aplicacion(self):
-
         self.destroy()
-        sys.exit()#cierra la ejecucion del programa
 
     # Inyecta el presenter
     def inyectar_presenter(self, presenter):
